@@ -30,8 +30,8 @@ function App() {
         </div>
       </header>
 
-      <div className="container">
-        <div className="row mt-5">
+      <div className="container rounded border border-2 mt-5 shadow">
+        <div className="row p-2">
           <div className="col-3">
             <div class="mb-3">
               <label for="" class="form-label">Genre</label>
@@ -42,7 +42,7 @@ function App() {
                 onChange={(e) => setGenre(e.target.value
                 )}
               >
-                <option selected>Select one</option>
+                <option selected disabled>Select one</option>
                 <option value="Thriller">Thriller</option>
                 <option value="Fantascienza">Fantascienza</option>
                 <option value="Romantio">Romantico</option>
@@ -74,20 +74,23 @@ function App() {
 
         </div>
 
-        <div className="row row-cols-1 row-cols-md-3 g-4">
-          <div className="col">
-            <div class="card text-start">
-              <img class="card-img-top" src="holder.js/100px180/" alt="Title" />
-              <div class="card-body">
-                <h4 class="card-title">Title</h4>
-                <p class="card-text">Genre</p>
+        <div className="row row-cols-1 row-cols-md-3 g-4  pb-5 mb-5">
+          {filteredFilms.map(film => (
+            <div className="col" key={film}>
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">{film.title}</h5>
+                  <p className="card-text">{film.genre}</p>
+                </div>
               </div>
             </div>
-
-          </div>
+          ))}
         </div>
 
       </div>
+
+
+
     </>
   )
 }
