@@ -1,8 +1,26 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
+const data = [
+  { title: 'Inception', genre: 'Fantascienza' },
+  { title: 'Il Padrino', genre: 'Thriller' },
+  { title: 'Titanic', genre: 'Romantico' },
+  { title: 'Batman', genre: 'Azione' },
+  { title: 'Interstellar', genre: 'Fantascienza' },
+  { title: 'Pulp Fiction', genre: 'Thriller' },
+];
 
 function App() {
 
+  const [films, setFilms] = useState(data);
+  const [genre, setGenre] = useState('');
+  const [filteredFilms, setFilteredFilms] = useState(films);
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+
+    console.log("Changed genre!", genre);
+    setFilteredFilms(films.filter(film => (film.genre.toLowerCase() === genre.toLowerCase() || genre === '') && (film.title.toLowerCase().includes(search.toLowerCase()))));
+  }, [genre, search, films]);
 
   return (
     <>
@@ -19,14 +37,16 @@ function App() {
               <label for="" class="form-label">Genre</label>
               <select
                 class="form-select"
-                name=""
+                name="genre"
                 id=""
+                onChange={(e) => setGenre(e.target.value
+                )}
               >
                 <option selected>Select one</option>
-                <option value="">Thriller</option>
-                <option value="">Fantascienza</option>
-                <option value="">Romantico</option>
-                <option value="">Azione</option>
+                <option value="Thriller">Thriller</option>
+                <option value="Fantascienza">Fantascienza</option>
+                <option value="Romantio">Romantico</option>
+                <option value="Azione">Azione</option>
 
               </select>
             </div>
@@ -43,6 +63,8 @@ function App() {
                 id=""
                 aria-describedby="helpId"
                 placeholder="Search a movie by title"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
 
             </div>
